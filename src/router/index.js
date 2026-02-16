@@ -53,18 +53,18 @@ const router = createRouter({
     routes
 })
 
-router.beforeEach((to, from, next) => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+// router.beforeEach((to, from, next) => {
+//     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if (to.meta.requiresAuth && !currentUser) {
-        return next('/login')
-    }
+//     if (to.meta.requiresAuth && !currentUser) {
+//         return next('/login')
+//     }
 
-    if (to.meta.role && currentUser?.role !== to.meta.role) {
-        return next('/unauthorized')
-    }
+//     if (to.meta.role && currentUser?.role !== to.meta.role) {
+//         return next('/unauthorized')
+//     }
 
-    next()
-})
+//     next()
+// })
 
 export default router
