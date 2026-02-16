@@ -7,10 +7,10 @@ Je te propose une **organisation réaliste type équipe GitHub**, avec rôles cl
 
 ## 👥 Équipe
 
-* 👨‍💼 **Caleb** — Gestionnaire de projet / Lead Developer
-* 👨‍💻 **Cédric** — Data & logique métier
-* 👨‍💻 **Otniel** — UI & Layout
-* 👨‍💻 **Armel** — Formulaires & UX
+- 👨‍💼 **Caleb** — Gestionnaire de projet / Lead Developer
+- 👨‍💻 **Cédric** — Data & logique métier
+- 👨‍💻 **Otniel** — UI & Layout
+- 👨‍💻 **Armel** — Formulaires & UX
 
 ---
 
@@ -27,8 +27,8 @@ Je te propose une **organisation réaliste type équipe GitHub**, avec rôles cl
 
 ### Branches principales
 
-* `main` → version finale stable
-* `develop` → intégration générale (seul Caleb y touche)
+- `main` → version finale stable
+- `develop` → intégration générale (seul Caleb y touche)
 
 ### Branches fonctionnalités
 
@@ -55,11 +55,11 @@ feature/dashboard-ui
 
 ✔ Accès :
 
-* main
-* develop
-* merge des Pull Requests
-* résolution conflits
-* validation finale
+- main
+- develop
+- merge des Pull Requests
+- résolution conflits
+- validation finale
 
 ### Cédric, Otniel, Armel
 
@@ -95,9 +95,9 @@ git push origin feature/nom
 
 6️⃣ Caleb :
 
-* review
-* test
-* merge
+- review
+- test
+- merge
 
 ---
 
@@ -115,17 +115,17 @@ git push origin feature/nom
 
 ### 14h – 16h
 
-* Initialisation projet Vue
-* Installation Vue Router
-* Structure dossiers
-* Création branches principales
-* Config globale layout
+- Initialisation projet Vue
+- Installation Vue Router
+- Structure dossiers
+- Création branches principales
+- Config globale layout
 
 ### 16h – 18h
 
-* Auth simulée
-* Route guard par rôle
-* currentUser LocalStorage
+- Auth simulée
+- Route guard par rôle
+- currentUser LocalStorage
 
 Branch :
 
@@ -137,7 +137,7 @@ feature/auth-system
 
 ## 👨‍💻 Cédric (Data)
 
-* Création composables :
+- Création composables :
 
 ```
 usePatients
@@ -147,7 +147,7 @@ useRooms
 useUsers
 ```
 
-* gestion LocalStorage générique
+- gestion LocalStorage générique
 
 Branch :
 
@@ -159,10 +159,10 @@ feature/storage-system
 
 ## 👨‍💻 Otniel (UI)
 
-* Sidebar fixe
-* Header
-* Layout principal
-* Navigation dynamique
+- Sidebar fixe
+- Header
+- Layout principal
+- Navigation dynamique
 
 Branch :
 
@@ -174,10 +174,10 @@ feature/main-layout
 
 ## 👨‍💻 Armel (UX)
 
-* Base composants formulaires
-* Inputs réutilisables
-* Boutons
-* structure validation
+- Base composants formulaires
+- Inputs réutilisables
+- Boutons
+- structure validation
 
 Branch :
 
@@ -205,9 +205,9 @@ feature/form-components
 
 ### Cédric
 
-* logique CRUD
-* recherche
-* filtres
+- logique CRUD
+- recherche
+- filtres
 
 Branch :
 
@@ -217,8 +217,8 @@ feature/patients-logic
 
 ### Armel
 
-* formulaires add/edit patient
-* validation
+- formulaires add/edit patient
+- validation
 
 Branch :
 
@@ -228,8 +228,8 @@ feature/patient-forms
 
 ### Otniel
 
-* page liste patients
-* table + détail
+- page liste patients
+- table + détail
 
 Branch :
 
@@ -239,15 +239,15 @@ feature/patient-ui
 
 ### Caleb
 
-* review + merge continu
+- review + merge continu
 
 ---
 
 ## 🕚 11h – 13h → Médecins
 
-* CRUD
-* spécialités
-* lien patients
+- CRUD
+- spécialités
+- lien patients
 
 ---
 
@@ -255,9 +255,9 @@ feature/patient-ui
 
 ⚠️ Feature critique
 
-* sélection patient/médecin
-* date/heure
-* anti double réservation
+- sélection patient/médecin
+- date/heure
+- anti double réservation
 
 Branches :
 
@@ -270,8 +270,8 @@ feature/appointments-ui
 
 ## 🌇 16h – 18h → Chambres
 
-* affectation patient
-* statut automatique
+- affectation patient
+- statut automatique
 
 ---
 
@@ -291,8 +291,8 @@ feature/appointments-ui
 
 ### Caleb
 
-* Dashboard avec computed
-* stats globales
+- Dashboard avec computed
+- stats globales
 
 Branch :
 
@@ -306,9 +306,9 @@ feature/dashboard-stats
 
 Gestion par rôle :
 
-* Admin → full access
-* Doctor → ses patients
-* Receptionist → accès limité
+- Admin → full access
+- Doctor → ses patients
+- Receptionist → accès limité
 
 ---
 
@@ -326,15 +326,15 @@ Bonus (choisir 2 max)
 
 👨‍💻 Otniel (lead design)
 
-* uniformisation UI
-* spacing
-* cards dashboard
-* sidebar propre
+- uniformisation UI
+- spacing
+- cards dashboard
+- sidebar propre
 
 Les autres :
 
-* ajustements visuels
-* responsive léger
+- ajustements visuels
+- responsive léger
 
 ⚠️ Interdiction totale de toucher à la logique.
 
@@ -366,13 +366,13 @@ Pas plusieurs modules dans une PR.
 
 Créer un canal :
 
-* Discord / WhatsApp / Slack
+- Discord / WhatsApp / Slack
 
 Messages :
 
-* “PR prête”
-* “bug trouvé”
-* “merge effectué”
+- “PR prête”
+- “bug trouvé”
+- “merge effectué”
 
 ---
 
@@ -391,9 +391,9 @@ Vous aurez :
 
 Ton vrai travail :
 
-* intégrer rapidement
-* résoudre conflits tôt
-* protéger develop/main
+- intégrer rapidement
+- résoudre conflits tôt
+- protéger develop/main
 
 Un bon chef de projet **code moins**, mais **oriente mieux**.
 

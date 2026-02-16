@@ -11,11 +11,11 @@ Vous êtes 4 → il faut **diviser par modules**, pas par pages.
 
 Rôle :
 
-* Architecture globale
-* Vue Router + guards
-* Structure dossiers
-* Validation finale
-* Intégration de tout
+- Architecture globale
+- Vue Router + guards
+- Structure dossiers
+- Validation finale
+- Intégration de tout
 
 ---
 
@@ -23,10 +23,10 @@ Rôle :
 
 Responsable :
 
-* LocalStorage modules
-* Composables (usePatients, useDoctors, etc.)
-* CRUD logique
-* relations doctor/patient
+- LocalStorage modules
+- Composables (usePatients, useDoctors, etc.)
+- CRUD logique
+- relations doctor/patient
 
 ---
 
@@ -34,10 +34,10 @@ Responsable :
 
 Responsable :
 
-* Layout général (sidebar + header)
-* Dashboard
-* Pages listes (tables)
-* Navigation
+- Layout général (sidebar + header)
+- Dashboard
+- Pages listes (tables)
+- Navigation
 
 ---
 
@@ -45,10 +45,10 @@ Responsable :
 
 Responsable :
 
-* Formulaires (add/edit)
-* Validation
-* Recherche + filtres
-* Toast notifications (bonus)
+- Formulaires (add/edit)
+- Validation
+- Recherche + filtres
+- Toast notifications (bonus)
 
 ---
 
@@ -84,16 +84,16 @@ src/
 
 ## ⏰ 14h00 – 15h00 → Setup initial (TOUT LE MONDE)
 
-* Création projet Vue
-* Installation Vue Router
-* Structure dossiers
-* Layout global (sidebar + header)
-* Définition rôles
+- Création projet Vue
+- Installation Vue Router
+- Structure dossiers
+- Layout global (sidebar + header)
+- Définition rôles
 
 ⚡ Résultat attendu :
 
-* Navigation fonctionne
-* Routes créées
+- Navigation fonctionne
+- Routes créées
 
 ---
 
@@ -101,20 +101,19 @@ src/
 
 👨‍💼 Toi :
 
-* Login page
-* LocalStorage users
-* currentUser
-* protection routes
+- Login page
+- LocalStorage users
+- currentUser
+- protection routes
 
 Autres :
 
-* créent vues vides :
-
-  * Dashboard
-  * Patients
-  * Doctors
-  * Appointments
-  * Rooms
+- créent vues vides :
+  - Dashboard
+  - Patients
+  - Doctors
+  - Appointments
+  - Rooms
 
 ---
 
@@ -122,8 +121,8 @@ Autres :
 
 Membre data :
 
-* CRUD générique localStorage
-* init data
+- CRUD générique localStorage
+- init data
 
 Exemple :
 
@@ -147,24 +146,24 @@ Résultat lundi soir :
 
 ## 🌅 9h00 – 11h00 → Gestion Patients (PRIORITÉ MAX)
 
-* CRUD complet
-* recherche
-* filtres
-* page détail patient
+- CRUD complet
+- recherche
+- filtres
+- page détail patient
 
 Répartition :
 
-* UI → tableaux
-* Forms → formulaires
-* Data → logique
+- UI → tableaux
+- Forms → formulaires
+- Data → logique
 
 ---
 
 ## 🕚 11h00 – 13h00 → Gestion Médecins
 
-* CRUD
-* spécialité
-* liste patients liés
+- CRUD
+- spécialité
+- liste patients liés
 
 ---
 
@@ -172,22 +171,20 @@ Répartition :
 
 IMPORTANT :
 
-* empêcher double réservation
+- empêcher double réservation
 
 Logique :
 
 ```js
-appointments.some(
- a => a.doctorId === doctorId && a.date === selectedDate
-)
+appointments.some((a) => a.doctorId === doctorId && a.date === selectedDate)
 ```
 
 ---
 
 ## 🌇 16h00 – 18h00 → Chambres + Relations
 
-* affectation patient ↔ chambre
-* statut chambre auto calculé
+- affectation patient ↔ chambre
+- statut chambre auto calculé
 
 ---
 
@@ -195,11 +192,11 @@ appointments.some(
 
 🔥 90% des fonctionnalités TERMINÉES
 
-* Auth OK
-* CRUD Patients
-* Doctors
-* Appointments
-* Rooms
+- Auth OK
+- CRUD Patients
+- Doctors
+- Appointments
+- Rooms
 
 ---
 
@@ -209,10 +206,10 @@ appointments.some(
 
 Cards :
 
-* total patients
-* hospitalisés
-* médecins
-* rdv du jour
+- total patients
+- hospitalisés
+- médecins
+- rdv du jour
 
 avec `computed`.
 
@@ -220,9 +217,9 @@ avec `computed`.
 
 ## ⏰ 10h30 – 12h00 → Gestion par rôles
 
-* menus dynamiques
-* vue filtrée médecin
-* vue simplifiée réceptionniste
+- menus dynamiques
+- vue filtrée médecin
+- vue simplifiée réceptionniste
 
 ---
 
@@ -243,11 +240,11 @@ Choisir 2–3 seulement :
 
 Checklist design :
 
-* Sidebar fixe
-* Espaces padding
-* cartes dashboard
-* cohérence couleurs
-* responsive simple
+- Sidebar fixe
+- Espaces padding
+- cartes dashboard
+- cohérence couleurs
+- responsive simple
 
 ---
 
@@ -261,9 +258,9 @@ En tant que chef :
 
 Si bloqué :
 
-* push code
-* demander aide
-* avancer sur autre tâche
+- push code
+- demander aide
+- avancer sur autre tâche
 
 ---
 
@@ -281,10 +278,10 @@ Si bloqué :
 
 Si vous êtes en avance :
 
-* mode sombre
-* pagination manuelle
-* animations simples
-* badges status (green/red)
+- mode sombre
+- pagination manuelle
+- animations simples
+- badges status (green/red)
 
 ---
 

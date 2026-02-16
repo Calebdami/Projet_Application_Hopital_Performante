@@ -6,12 +6,7 @@
       <input v-model="form.name" placeholder="Nom" required />
       <input v-model="form.email" placeholder="Email" required />
 
-      <input
-        v-model="form.password"
-        type="password"
-        placeholder="Mot de passe"
-        required
-      />
+      <input v-model="form.password" type="password" placeholder="Mot de passe" required />
 
       <select v-model="form.role">
         <option value="doctor">Médecin</option>
@@ -37,7 +32,7 @@ const form = reactive({
   name: '',
   email: '',
   password: '',
-  role: 'doctor'
+  role: 'doctor',
 })
 
 function handleCreate() {

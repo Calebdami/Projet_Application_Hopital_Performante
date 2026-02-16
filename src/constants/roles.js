@@ -1,11 +1,11 @@
 export const ROLES = {
-    ADMIN: 'admin',
-    DOCTOR: 'doctor',
-    RECEPTIONIST: 'receptionist'
+  ADMIN: 'admin',
+  DOCTOR: 'doctor',
+  RECEPTIONIST: 'receptionist',
 }
 
 export const ROLE_LABELS = {
-    admin: 'Administrateur',
-    doctor: 'Médecin',
-    receptionist: 'Réceptionniste'
+  admin: 'Administrateur',
+  doctor: 'Médecin',
+  receptionist: 'Réceptionniste',
 }
