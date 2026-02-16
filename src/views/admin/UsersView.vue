@@ -1,51 +1,58 @@
 <template>
-  <div>
-    <h2>Créer un utilisateur</h2>
+    <div>
+        <h2>Créer un utilisateur</h2>
 
-    <form @submit.prevent="handleCreate">
-      <input v-model="form.name" placeholder="Nom" required />
-      <input v-model="form.email" placeholder="Email" required />
+        <form @submit.prevent="create" class="form">
+            <input v-model="name" placeholder="Nom" required />
+            <input v-model="email" type="email" placeholder="Email" required />
+            <input v-model="password" type="password" placeholder="Mot de passe" required />
 
-      <input
-        v-model="form.password"
-        type="password"
-        placeholder="Mot de passe"
-        required
-      />
+            <select v-model="role">
+                <option value="doctor">Médecin</option>
+                <option value="receptionist">Réceptionniste</option>
+            </select>
 
-      <select v-model="form.role">
-        <option value="doctor">Médecin</option>
-        <option value="receptionist">Réceptionniste</option>
-      </select>
-
-      <button type="submit">Créer</button>
-    </form>
-
-    <p v-if="message">{{ message }}</p>
-  </div>
+            <button type="submit">
+                Créer
+            </button>
+        </form>
+    </div>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { useAuth } from '@/composables/useAuth'
+    import { ref } from 'vue'
+    import { useAuth } from '@/composables/useAuth'
 
-const { createUser } = useAuth()
+    const { createUser } = useAuth()
 
-const message = ref('')
+    const name = ref('')
+    const email = ref('')
+    const password = ref('')
+    const role = ref('doctor')
 
-const form = reactive({
-  name: '',
-  email: '',
-  password: '',
-  role: 'doctor'
-})
+    function create() {
+        try {
+            createUser({
+                name: name.value,
+                email: email.value,
+                password: password.value,
+                role: role.value
+            })
 
-function handleCreate() {
-  try {
-    createUser(form)
-    message.value = 'Utilisateur créé avec succès'
-  } catch (err) {
-    message.value = err.message
-  }
-}
+            name.value = ''
+            email.value = ''
+            password.value = ''
+        } catch (err) {
+            alert(err.message)
+        }
+    }
 </script>
+
+<style scoped>
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 320px;
+    }
+</style>
