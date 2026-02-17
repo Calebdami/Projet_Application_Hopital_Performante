@@ -18,6 +18,7 @@ import ReceptionnistPage from '@/views/receptionist/ReceptionnistPage.vue';
 import ReceptionDashboard from '@/views/receptionist/ReceptionDashboard.vue';
 import ReceptionPatientsView from '@/views/receptionist/ReceptionPatientsView.vue';
 import ReceptionAppointmentsView from '@/views/receptionist/ReceptionAppointmentsView.vue';
+import PatientDetailView from '@/views/shared/PatientDetailView.vue';
 
 const routes = [
     { path: '/login', component: AuthLayout, children: [{ path: '', component: LoginView }] },
@@ -25,6 +26,7 @@ const routes = [
     { path: '/', component: MainLayout, meta: { requiresAuth: true, role: 'admin' }, children: [
         { path: 'dashboard', component: AdminDashboard },
         { path: 'patients', component: PatientsView },
+        { path: 'patients/:id', name: 'PatientDetail', component: PatientDetailView, props: true },
         { path: 'doctors', component: DoctorsView, meta: { role: 'admin' } },
         { path: 'appointments', component: AppointmentView },
         { path: 'rooms', component: RoomsView },
@@ -35,6 +37,7 @@ const routes = [
     { path: '/doctor', component: DoctorPage, meta: { role: 'doctor' }, children: [
             { path: 'dashboard', component: DoctorDashboard },
             { path: 'patients', component: MyPatientsView },
+            { path: 'patients/:id', name: 'PatientDetail', component: PatientDetailView, props: true },
             { path: 'appointments', component: MyAppointmentsView },
         ]
     },
@@ -42,6 +45,7 @@ const routes = [
     { path: '/reception', component: ReceptionnistPage,  meta: { role: 'receptionist' }, children: [
             { path: 'dashboard', component: ReceptionDashboard },
             { path: 'patients', component: ReceptionPatientsView },
+            { path: 'patients/:id', name: 'PatientDetail', component: PatientDetailView, props: true },
             { path: 'appointments', component: ReceptionAppointmentsView },
             { path: 'rooms', component: RoomsView },
         ]

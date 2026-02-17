@@ -19,7 +19,7 @@
                 <td>{{ patient.phone }}</td>
                 <td>{{ patient.status }}</td>
                 <td>
-                    <button @click="$emit('view', patient.id)">👁️</button>
+                    <router-link :to="{ name: 'PatientDetail', params: { id: patient.id } }">👁️</router-link>
                     <button @click="$emit('edit', patient)">✏️</button>
                     <button @click="$emit('delete', patient.id)">🗑️</button>
                 </td>
@@ -29,13 +29,20 @@
 </template>
 
 <script setup>
+    import { defineProps, defineEmits } from 'vue'
+
+    // Props : la liste des patients
     defineProps({
         patients: {
             type: Array,
             default: () => []
         }
     })
-</script>
+
+    // Déclaration des événements émis vers le parent
+    const emit = defineEmits(['view', 'edit', 'delete'])
+    </script>
+
 
 <style scoped>
     .table {
