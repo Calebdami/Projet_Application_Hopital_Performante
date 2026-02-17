@@ -7,7 +7,7 @@
     </div>
 
     <div>
-      <label>Capacité :</label>
+      <label>Capacité (nombre de lits) :</label>
       <input type="number" v-model.number="form.capacity" min="1" />
       <span class="error" v-if="errors.capacity">{{ errors.capacity }}</span>
     </div>
@@ -17,6 +17,7 @@
       <select v-model="form.status">
         <option value="free">Libre</option>
         <option value="occupied">Occupée</option>
+        <option value="maintenance">Maintenance</option>
       </select>
     </div>
 
@@ -24,8 +25,14 @@
       <label>Affectation patient :</label>
       <select v-model="form.patientId">
         <option value="">Aucun</option>
-        <option v-for="p in patients" :key="p.id" :value="p.id">
+        <option
+          v-for="p in patients"
+          :key="p.id"
+          :value="p.id"
+          :disabled="isPatientAssigned(p.id)"
+        >
           {{ p.firstName }} {{ p.lastName }}
+          <span v-if="isPatientAssigned(p.id)"> (Déjà assigné)</span>
         </option>
       </select>
     </div>
@@ -36,8 +43,13 @@
   <h2>Liste des chambres</h2>
   <ul>
     <li v-for="room in rooms" :key="room.id">
-      {{ room.number }} - Capacité : {{ room.capacity }} - Statut : {{ room.status }}
-      <span v-if="room.patientId"> - Occupée par : {{ getPatientName(room.patientId) }}</span>
+      <strong>{{ room.number }}</strong> - Capacité : {{ room.capacity }} - Statut :
+      <span :style="{ color: room.status === 'occupied' ? 'red' : room.status === 'maintenance' ? 'orange' : 'green' }">
+        {{ room.status }}
+      </span>
+      <span v-if="room.patients && room.patients.length">
+        - Occupée par : {{ getPatientNames(room.patients).join(', ') }}
+      </span>
       <button @click="editRoom(room)">✏️</button>
       <button @click="deleteRoom(room.id)">🗑️</button>
     </li>
@@ -56,7 +68,7 @@ const form = reactive({
   number: '',
   capacity: 1,
   status: 'free',
-  patientId: '',
+  patients: [], // tableau pour plusieurs patients
 })
 
 const errors = reactive({
@@ -67,6 +79,7 @@ const errors = reactive({
 const isEditing = ref(false)
 let editingId = null
 
+// --- Validation du formulaire ---
 function validate() {
   let isValid = true
   Object.keys(errors).forEach((k) => (errors[k] = ''))
@@ -75,14 +88,21 @@ function validate() {
     errors.number = 'Numéro requis'
     isValid = false
   }
+
   if (!form.capacity || form.capacity < 1) {
     errors.capacity = 'Capacité invalide'
+    isValid = false
+  }
+
+  if (form.patients.length > form.capacity) {
+    errors.capacity = 'Nombre de patients supérieur à la capacité'
     isValid = false
   }
 
   return isValid
 }
 
+// --- Soumission ---
 function handleSubmit() {
   if (!validate()) return
 
@@ -97,24 +117,33 @@ function handleSubmit() {
   resetForm()
 }
 
+// --- Edition ---
 function editRoom(room) {
   Object.assign(form, room)
   editingId = room.id
   isEditing.value = true
 }
 
+// --- Reset form ---
 function resetForm() {
   form.number = ''
   form.capacity = 1
   form.status = 'free'
-  form.patientId = ''
+  form.patients = []
   editingId = null
   isEditing.value = false
 }
 
-function getPatientName(id) {
-  const p = patients.value.find((p) => p.id === id)
-  return p ? `${p.firstName} ${p.lastName}` : 'Inconnu'
+// --- Helpers ---
+function getPatientNames(patientIds) {
+  return patientIds.map((id) => {
+    const p = patients.value.find((p) => p.id === id)
+    return p ? `${p.firstName} ${p.lastName}` : 'Inconnu'
+  })
+}
+
+function isPatientAssigned(patientId) {
+  return rooms.value.some((r) => r.patients?.includes(patientId))
 }
 </script>
 
