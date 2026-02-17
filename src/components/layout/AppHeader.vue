@@ -3,6 +3,7 @@
         <div>
             <strong>{{ currentUser?.name }}</strong>
             <small>({{ currentUser?.role }})</small>
+            <small v-if="currentUser.role == 'doctor'">({{ currentUser?.id }})</small>
         </div>
 
         <button @click="handleLogout">Déconnexion</button>

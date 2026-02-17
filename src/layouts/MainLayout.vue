@@ -4,7 +4,7 @@
     import AppSidebar from '@/components/layout/AppSidebar.vue'
 
     const router = useRouter()
-    const { currentUser, logout } = useAuth()
+    const { currentUser, logout } = useAuth();
 
     function handleLogout() {
         logout()
@@ -22,6 +22,7 @@
             <header class="header">
                 <span>{{ currentUser?.name }}</span>
                 <span>{{ currentUser?.role }}</span>
+                <small v-if="currentUser?.role == 'doctor'">({{ currentUser?.id }})</small>
                 <button @click="handleLogout">Déconnexion</button>
             </header>
 
