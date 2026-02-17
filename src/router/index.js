@@ -45,7 +45,7 @@ const routes = [
     { path: '/reception', component: ReceptionnistPage,  meta: { role: 'receptionist' }, children: [
             { path: 'dashboard', component: ReceptionDashboard },
             { path: 'patients', component: ReceptionPatientsView },
-            { path: 'patients/:id', name: 'PatientDetail', component: PatientDetailView, props: true },
+            { path: 'patients/:id', name: 'PatientDetail', component: PatientDetailView, props: true, meta: { requiresAuth: true, role: 'admin' } },
             { path: 'appointments', component: ReceptionAppointmentsView },
             { path: 'rooms', component: RoomsView },
         ]

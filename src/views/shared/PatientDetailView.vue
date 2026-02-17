@@ -28,13 +28,9 @@
 
     const { patients } = usePatients()
 
-    const patient = computed(() =>
-        patients.value.find(p => p.id == route.params.id)
-    )
+    const patient = computed(() => patients.value.find(p => p.id == route.params.id))
 
-    function goBack() {
-        router.back()
-    }
+    function goBack() { router.back() }
 </script>
 
 <style scoped>

@@ -67,7 +67,6 @@ function createUser(data) {
 
     users.push(newUser)
     localStorage.setItem('users', JSON.stringify(users))
-
     return newUser
 }
 
