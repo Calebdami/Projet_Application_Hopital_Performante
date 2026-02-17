@@ -2,7 +2,7 @@ import { useLocalStorage } from './useLocalStorage'
 import { useAppointments } from './useAppointments'
 
 export function useDoctors() {
-  const doctors = useLocalStorage('doctors', [])
+  const doctors = useLocalStorage('doctors', []) //impplémentation du localStorage des doctors
 
   function addDoctor(doctor) {
     doctors.value.push({

@@ -301,3 +301,19 @@ CONTRIBUTING.md
 avec vos règles Git → ça fait **très niveau entreprise**.
 
 ---
+
+
+
+
+la chambre dépend du patient 
+
+1- la chambre sert à :
+- créer une chambre avec un numéro unique (sans Date.now()) : exemple : 001, 002...
+- prédéfinir la capacité d'une chambre
+- prédéfinir son status (libre, occupéen maintenance)
+- voir les patients qui sont affectés à ces chambres
+
+2- le patient doit être dans une chambre sont le numéro a été effectivement créer.
+
+Donc au niveau des chambres créer, si on attribut une chambre au patient dans Patient.view, le statut doit-être automatiquement changé en "occupé"
+et la capcité doit s'ajuster pour afficher le nombre de place encore disponible

@@ -2,7 +2,7 @@ import { useLocalStorage } from './useLocalStorage'
 import { useDoctors } from './useDoctors'
 
 export function useAppointments() {
-  const appointments = useLocalStorage('appointments', [])
+  const appointments = useLocalStorage('appointments', []) //impplémentation du localStorage des RDV
   const { doctors } = useDoctors()
 
   function isOverlapping(newAppt, existingAppt) {

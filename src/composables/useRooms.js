@@ -1,54 +1,70 @@
 import { useLocalStorage } from './useLocalStorage'
 
 export function useRooms() {
-    const rooms = useLocalStorage('rooms', [])
+  const rooms = useLocalStorage('rooms', [])
 
-    function addRoom(room) {
-        rooms.value.push({
-            id: Date.now(),
-            status: 'free',
-            ...room
-        })
+  function addRoom(room) {
+    // Vérifie numéro unique
+    if (rooms.value.some(r => r.number === room.number)) {
+      throw new Error('Numéro de chambre déjà existant')
     }
 
-    function updateRoom(id, updatedRoom) {
-        const index = rooms.value.findIndex(r => r.id === id)
-        if (index !== -1) {
-            rooms.value[index] = { ...rooms.value[index], ...updatedRoom }
-        }
+    rooms.value.push({
+      ...room,
+      patients: [],
+      status: room.status || 'free',
+    })
+  }
+
+  function updateRoom(number, updatedRoom) {
+    const index = rooms.value.findIndex(r => r.number === number)
+    if (index !== -1) {
+      rooms.value[index] = { ...rooms.value[index], ...updatedRoom }
+    }
+  }
+
+  function deleteRoom(number) {
+    rooms.value = rooms.value.filter(r => r.number !== number)
+  }
+
+  function findRoom(number) {
+    return rooms.value.find(r => r.number === number)
+  }
+
+  function assignPatient(number, patientId) {
+    const room = findRoom(number)
+    if (!room) throw new Error('Chambre inexistante')
+    if (room.patients.includes(patientId)) return
+
+    if (room.patients.length >= room.capacity) {
+      throw new Error('Chambre pleine')
     }
 
-    function deleteRoom(id) {
-        rooms.value = rooms.value.filter(r => r.id !== id)
-    }
+    room.patients.push(patientId)
+    room.status = room.patients.length > 0 ? 'occupied' : 'free'
+  }
 
-    function findRoom(id) {
-        return rooms.value.find(r => r.id === id)
-    }
+  function removePatient(number, patientId) {
+    const room = findRoom(number)
+    if (!room) return
 
-    function assignPatient(roomId, patientId) {
-        const room = findRoom(roomId)
-        if (room) {
-            room.patientId = patientId
-            room.status = 'occupied'
-        }
-    }
+    room.patients = room.patients.filter(id => id !== patientId)
+    room.status = room.patients.length === 0 ? 'free' : 'occupied'
+  }
 
-    function freeRoom(roomId) {
-        const room = findRoom(roomId)
-        if (room) {
-            room.patientId = null
-            room.status = 'free'
-        }
-    }
+  function availablePlaces(number) {
+    const room = findRoom(number)
+    return room ? room.capacity - room.patients.length : 0
+  }
 
-    return {
-        rooms,
-        addRoom,
-        updateRoom,
-        deleteRoom,
-        findRoom,
-        assignPatient,
-        freeRoom
-    }
+  return {
+    rooms,
+    addRoom,
+    updateRoom,
+    deleteRoom,
+    findRoom,
+    assignPatient,
+    removePatient,
+    availablePlaces
+  }
 }
