@@ -2,6 +2,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Spécialité</th>
                 <th>Téléphone</th>
@@ -12,6 +13,7 @@
 
         <tbody>
             <tr v-for="doctor in doctors" :key="doctor.id">
+                <td>{{ doctor.id }}</td>
                 <td>{{ doctor.name }}</td>
                 <td>{{ doctor.speciality }}</td>
                 <td>{{ doctor.phone }}</td>

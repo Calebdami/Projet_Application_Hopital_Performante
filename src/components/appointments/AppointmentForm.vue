@@ -1,25 +1,3 @@
-<template>
-    <form @submit.prevent="handleSubmit" class="form">
-        <h3>{{ editMode ? 'Modifier' : 'Nouveau' }} Rendez-vous</h3>
-
-        <input v-model="form.patientId" placeholder="ID Patient" required />
-        <input v-model="form.doctorId" placeholder="ID Médecin" required />
-
-        <input type="date" v-model="form.date" required />
-        <input type="time" v-model="form.time" required />
-
-        <select v-model="form.status">
-            <option value="pending">En attente</option>
-            <option value="confirmed">Confirmé</option>
-            <option value="cancelled">Annulé</option>
-        </select>
-
-        <button type="submit">
-            {{ editMode ? 'Mettre à jour' : 'Créer' }}
-        </button>
-    </form>
-</template>
-
 <script setup>
     import { reactive, watch, computed } from 'vue'
 
@@ -50,6 +28,29 @@
         emit('submit', { ...form })
     }
 </script>
+
+<template>
+    <form @submit.prevent="handleSubmit" class="form">
+        <h3>{{ editMode ? 'Modifier' : 'Nouveau' }} Rendez-vous</h3>
+
+        <input v-model="form.patientId" placeholder="ID Patient" required />
+        <input v-model="form.doctorId" placeholder="ID Médecin" required />
+
+        <input type="date" v-model="form.date" required />
+        <input type="time" v-model="form.time" required />
+
+        <select v-model="form.status">
+            <option value="pending">En attente</option>
+            <option value="confirmed">Confirmé</option>
+            <option value="cancelled">Annulé</option>
+        </select>
+
+        <button type="submit">
+            {{ editMode ? 'Mettre à jour' : 'Créer' }}
+        </button>
+    </form>
+</template>
+
 
 <style scoped>
     .form {

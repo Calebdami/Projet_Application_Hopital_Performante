@@ -34,8 +34,13 @@
             return
         }
 
-        router.push('/dashboard')
+        const user = JSON.parse(localStorage.getItem('currentUser'))
+        if (user.role === 'admin') router.push('/dashboard')
+        if (user.role === 'doctor') router.push('/doctor/dashboard')
+        if (user.role === 'receptionist') router.push('/reception/dashboard')
+        if (user.role === 'patient') router.push('/patients')
     }
+
 </script>
 
 <style scoped>

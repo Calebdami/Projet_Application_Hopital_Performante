@@ -10,42 +10,46 @@ import UnauthorizedView from '@/views/shared/UnauthorizedView.vue';
 import AppointmentView from '@/views/admin/AppointmentsView.vue';
 import UsersView from '@/views/admin/UsersView.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+import DoctorPage from '@/views/doctor/DoctorPage.vue';
+import DoctorDashboard from '@/views/doctor/DoctorDashboard.vue';
+import MyPatientsView from '@/views/doctor/MyPatientsView.vue';
+import MyAppointmentsView from '@/views/doctor/MyAppointmentsView.vue';
+import ReceptionnistPage from '@/views/receptionist/ReceptionnistPage.vue';
+import ReceptionDashboard from '@/views/receptionist/ReceptionDashboard.vue';
+import ReceptionPatientsView from '@/views/receptionist/ReceptionPatientsView.vue';
+import ReceptionAppointmentsView from '@/views/receptionist/ReceptionAppointmentsView.vue';
 
 const routes = [
-    {
-        path: '/login',
-        component: AuthLayout,
-        children: [{ path: '', component: LoginView }]
-    },
+    { path: '/login', component: AuthLayout, children: [{ path: '', component: LoginView }] },
 
-    {
-        path: '/',
-        component: MainLayout,
-        meta: { requiresAuth: true },
-        children: [
-            { path: 'dashboard', component: AdminDashboard },
-            { path: 'patients', component: PatientsView },
-            { path: 'doctors', component: DoctorsView, meta: { role: 'admin' } },
-            { path: 'appointments', component: AppointmentView },
-            { path: 'rooms', component: RoomsView }
+    { path: '/', component: MainLayout, meta: { requiresAuth: true, role: 'admin' }, children: [
+        { path: 'dashboard', component: AdminDashboard },
+        { path: 'patients', component: PatientsView },
+        { path: 'doctors', component: DoctorsView, meta: { role: 'admin' } },
+        { path: 'appointments', component: AppointmentView },
+        { path: 'rooms', component: RoomsView },
+        { path: 'users', component: UsersView},
         ]
     },
 
-    {
-        path: '/unauthorized',
-        component: UnauthorizedView
+    { path: '/doctor', component: DoctorPage, meta: { role: 'doctor' }, children: [
+            { path: 'dashboard', component: DoctorDashboard },
+            { path: 'patients', component: MyPatientsView },
+            { path: 'appointments', component: MyAppointmentsView },
+        ]
     },
 
-    {
-        path: '/users',
-        component: UsersView,
-        meta: { role: 'admin' }
+    { path: '/reception', component: ReceptionnistPage,  meta: { role: 'receptionist' }, children: [
+            { path: 'dashboard', component: ReceptionDashboard },
+            { path: 'patients', component: ReceptionPatientsView },
+            { path: 'appointments', component: ReceptionAppointmentsView },
+            { path: 'rooms', component: RoomsView },
+        ]
     },
 
-    {
-        path: '/:pathMatch(.*)*',
-        redirect: '/login'
-    }
+    { path: '/unauthorized', component: UnauthorizedView },
+
+    { path: '/:pathMatch(.*)*', redirect: '/login' }
 ]
 
 const router = createRouter({

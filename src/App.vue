@@ -1,11 +1,12 @@
-<template>
-    <router-view />
-</template>
-
 <script setup>
 // App.vue reste volontairement léger.
 // Toute la structure de l’application est gérée par Vue Router et les layouts.
 </script>
+
+<template>
+    <router-view />
+</template>
+
 
 <style>
     /* Styles globaux simples */

@@ -1,27 +1,7 @@
-<template>
-    <div class="layout">
-        <aside class="sidebar">
-            <router-link to="/dashboard">Dashboard</router-link>
-            <router-link to="/patients">Patients</router-link>
-            <router-link to="/doctors">Médecins</router-link>
-            <router-link to="/appointments">Rendez-vous</router-link>
-            <router-link to="/rooms">Chambres</router-link>
-        </aside>
-
-        <main class="content">
-            <header class="header">
-                <span>{{ currentUser?.name }}</span>
-                <button @click="handleLogout">Déconnexion</button>
-            </header>
-
-            <router-view />
-        </main>
-    </div>
-</template>
-
 <script setup>
     import { useRouter } from 'vue-router'
     import { useAuth } from '@/composables/useAuth'
+    import AppSidebar from '@/components/layout/AppSidebar.vue'
 
     const router = useRouter()
     const { currentUser, logout } = useAuth()
@@ -31,6 +11,25 @@
         router.push('/login')
     }
 </script>
+
+<template>
+    <div class="layout">
+        <aside class="sidebar">
+            <app-sidebar/>
+        </aside>
+
+        <main class="content">
+            <header class="header">
+                <span>{{ currentUser?.name }}</span>
+                <span>{{ currentUser?.role }}</span>
+                <button @click="handleLogout">Déconnexion</button>
+            </header>
+
+            <router-view />
+        </main>
+    </div>
+</template>
+
 
 <style scoped>
     .layout {
