@@ -2,21 +2,16 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nom</th>
                 <th>Genre</th>
-                <th>Téléphone</th>
                 <th>Statut</th>
-                <th>Actions</th>
             </tr>
         </thead>
 
         <tbody>
             <tr v-for="patient in patients" :key="patient.id">
-                <td>{{ patient.id }}</td>
                 <td>{{ patient.firstName }} {{ patient.lastName }}</td>
                 <td>{{ patient.gender }}</td>
-                <td>{{ patient.phone }}</td>
                 <td>{{ patient.status }}</td>
                 <td>
                     <router-link :to="{ name: 'PatientDetail', params: { id: patient.id } }">👁️</router-link>

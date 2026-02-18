@@ -1,19 +1,21 @@
 <template>
-    <div>
-        <h2>Patients</h2>
-
-        <PatientForm
-            :editMode="editMode"
-            :modelValue="selectedPatient"
-            @submit="savePatient"
-        />
-
-        <PatientsTable
-            :patients="patients"
-            @edit="startEdit"
-            @delete="removePatient"
-            @view="goToDetail"
-        />
+    <div class="patients-container">
+        <div class="form-wrapper">
+            <h2>Patients</h2>
+            <PatientForm
+                :editMode="editMode"
+                :modelValue="selectedPatient"
+                @submit="savePatient"
+            />
+        </div>
+        <div class="table-wrapper">
+            <PatientsTable
+                :patients="patients"
+                @edit="startEdit"
+                @delete="removePatient"
+                @view="goToDetail"
+            />
+        </div>
     </div>
 </template>
 
@@ -55,3 +57,21 @@
         router.push(`/patients/${id}`)
     }
 </script>
+
+<style scoped>
+    .patients-container {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    /* 70% */
+    .form-wrapper {
+        flex: 0 0 70%;
+    }
+
+    /* 30% */
+    .table-wrapper {
+        flex: 0 0 30%;
+    }
+</style>
