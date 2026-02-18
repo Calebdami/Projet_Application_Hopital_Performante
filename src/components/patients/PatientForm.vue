@@ -124,11 +124,7 @@
 
   const availableDoctors = computed(() => doctors.value.filter((d) => d.available))
 
-    const props = defineProps({
-        modelValue: Object,
-        editMode: Boolean
-    })
-    const emit = defineEmits(['submit']);
+const emit = defineEmits(['submit']);
 
 const props = defineProps({
   modelValue: Object,
