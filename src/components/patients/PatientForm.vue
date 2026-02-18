@@ -75,6 +75,7 @@
             {{ doc.firstName }} {{ doc.lastName }} ({{ doc.speciality }})
           </option>
         </select>
+<<<<<<< HEAD
       </section>
       <!-- Chambre -->
       <select v-model="form.roomId">
@@ -88,6 +89,28 @@
     <!-- ========================= --><!-- 5. PROFESSION & ARRIVÉE --><!-- ========================= -->
     <section>
       <h3>Informations administratives</h3>
+=======
+        
+        <!-- ========================= IDENTITÉ DU PATIENT --><!-- ========================= -->
+        <section>
+            <h3>Identité</h3>
+
+            <select v-model="form.room">
+                <option value="">-- Choix de chambres --</option>
+                <option value="oui">OUI</option>
+                <option value="non">NON</option>
+            </select>
+            <input v-model="form.firstName" placeholder="Prénom" required />
+            <input v-model="form.lastName" placeholder="Nom" required />
+            <input v-model="form.birthday" type="date" />
+            <select v-model="form.gender">
+                <option value="male">Homme</option>
+                <option value="female">Femme</option>
+            </select>
+            <input type="file" accept="image/*" @change="handlePhoto" />
+            <input v-model="form.numeroIP" placeholder="Numéro IP" type="number" />
+        </section>
+>>>>>>> ec3f1cfe98d27bc11875b716e1dd70d1153db07f
 
       <select v-model="form.profession">
         <option value="">-- Profession --</option>
@@ -146,10 +169,37 @@ import { useDoctors } from '@/composables/useDoctors' // si tu as un composable 
 
 const availableDoctors = computed(() => doctors.value.filter((d) => d.available))
 
+<<<<<<< HEAD
 const props = defineProps({
   modelValue: Object,
   editMode: Boolean,
 })
+=======
+    let form = reactive({
+        status: 'pending',
+        firstName: '',
+        lastName: '',
+        phone: '',
+        room: '',
+        gender: 'male',
+        bloodGroup: '',
+        birthday: '',
+        numeroIP: '',
+        photoIP: '',
+        email: '',
+        allergies: '',
+        antecedantMajeurs: '',
+        medicamentEnCours: '',
+        personneDeConfiance: '',
+        numeroDePersonneConfiance: '',
+        lienDeParente: '',
+        priseEnCharge: '',
+        profession: '',
+        modeArrivee: '',
+        languages: [],
+        role: 'patient'
+    })
+>>>>>>> ec3f1cfe98d27bc11875b716e1dd70d1153db07f
 
 const emit = defineEmits(['submit'])
 
