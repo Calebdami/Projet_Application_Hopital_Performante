@@ -4,21 +4,16 @@
 </script>
 
 <template>
-    <router-view />
+    <div class="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
+        <router-view />
+    </div>
 </template>
 
-
 <style>
-    /* Styles globaux simples */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    /* Importation d'une police sans-serif propre si vous ne l'avez pas déjà configurée */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     body {
-        font-family: Arial, sans-serif;
-        background: #f3f4f6;
-        color: #111827;
+    font-family: 'Inter', sans-serif;
     }
 </style>
