@@ -3,11 +3,21 @@
         <h3>{{ editMode ? 'Modifier' : 'Ajouter' }} Patient</h3>
 
         <select v-model="form.status">
-            <option value="hospitalized">Hospitalisé</option>
-            <option value="discharged">Sorti</option>
-            <option value="pending">En attente</option>
+            <option value="Hospitalise(e)">Hospitalisé</option>
+            <option value="Sorti(e)">Sorti</option>
+            <option value="En attente">En attente</option>
         </select>
         
+        <section>
+            <div>
+                <h4>Besoin de chambres ?</h4>
+                <input v-model="needRoom" type="checkbox" name="room">
+            </div>
+            <input v-if="needRoom===true" v-model="form.roomNumber" type="text" placeholder="Numero de chambre" />
+        </section>
+        
+        <input v-model="form.doctorId" type="number" placeholder="Id du docteur" />
+
         <!-- ========================= --><!-- 1. IDENTITÉ DU PATIENT --><!-- ========================= -->
         <section>
             <h3>Identité</h3>
@@ -117,20 +127,22 @@
 </template>
 
 <script setup>
-    import { reactive, watch } from 'vue'
+    import { ref, reactive, watch } from 'vue';
 
     const props = defineProps({
         modelValue: Object,
         editMode: Boolean
     })
-
-    const emit = defineEmits(['submit'])
+    const needRoom = ref(false);
+    const emit = defineEmits(['submit']);
 
     let form = reactive({
-        status: 'pending',
+        status: 'En attente',
         firstName: '',
         lastName: '',
         phone: '',
+        doctorId: '',
+        roomNumber: '',
         gender: 'male',
         bloodGroup: '',
         birthday: '',
@@ -147,7 +159,6 @@
         profession: '',
         modeArrivee: '',
         languages: [],
-        role: 'patient'
     })
 
     watch(

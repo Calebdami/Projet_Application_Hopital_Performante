@@ -2,10 +2,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nom</th>
                 <th>Spécialité</th>
-                <th>Téléphone</th>
                 <th>Disponible</th>
                 <th>Actions</th>
             </tr>
@@ -13,10 +11,8 @@
 
         <tbody>
             <tr v-for="doctor in doctors" :key="doctor.id">
-                <td>{{ doctor.id }}</td>
                 <td>{{ doctor.name }}</td>
                 <td>{{ doctor.speciality }}</td>
-                <td>{{ doctor.phone }}</td>
                 <td>{{ doctor.available ? 'Oui' : 'Non' }}</td>
                 <td>
                     <button @click="$emit('edit', doctor)">✏️</button>

@@ -1,18 +1,20 @@
 <template>
-    <div>
-        <h2>Médecins</h2>
-
-        <DoctorForm
-            :editMode="editMode"
-            :modelValue="selectedDoctor"
-            @submit="saveDoctor"
-        />
-
-        <DoctorsTable
-            :doctors="doctors"
-            @edit="startEdit"
-            @delete="removeDoctor"
-        />
+    <div class="doctors-container">
+        <div class="form-wrapper">
+            <h2>Médecins</h2>
+            <DoctorForm
+                :editMode="editMode"
+                :modelValue="selectedDoctor"
+                @submit="saveDoctor"
+            />
+        </div>
+        <div class="table-wrapper">
+            <DoctorsTable
+                :doctors="doctors"
+                @edit="startEdit"
+                @delete="removeDoctor"
+            />
+        </div>
     </div>
 </template>
 
@@ -48,3 +50,21 @@
         deleteDoctor(id)
     }
 </script>
+
+<style scoped>
+    .doctors-container {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    /* 70% */
+    .form-wrapper {
+        flex: 0 0 70%;
+    }
+
+    /* 30% */
+    .table-wrapper {
+        flex: 0 0 30%;
+    }
+</style>

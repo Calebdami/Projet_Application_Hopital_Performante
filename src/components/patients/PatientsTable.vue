@@ -27,15 +27,15 @@
     import { defineProps, defineEmits } from 'vue'
 
     // Props : la liste des patients
-    defineProps({
+    const props = defineProps({
         patients: {
             type: Array,
             default: () => []
         }
     })
-
     // Déclaration des événements émis vers le parent
     const emit = defineEmits(['view', 'edit', 'delete'])
+    
     </script>
 
 
