@@ -8,10 +8,15 @@
             <option value="pending">En attente</option>
         </select>
         
-        <!-- ========================= --><!-- 1. IDENTITÉ DU PATIENT --><!-- ========================= -->
+        <!-- ========================= IDENTITÉ DU PATIENT --><!-- ========================= -->
         <section>
             <h3>Identité</h3>
 
+            <select v-model="form.room">
+                <option value="">-- Choix de chambres --</option>
+                <option value="oui">OUI</option>
+                <option value="non">NON</option>
+            </select>
             <input v-model="form.firstName" placeholder="Prénom" required />
             <input v-model="form.lastName" placeholder="Nom" required />
             <input v-model="form.birthday" type="date" />
@@ -131,6 +136,7 @@
         firstName: '',
         lastName: '',
         phone: '',
+        room: '',
         gender: 'male',
         bloodGroup: '',
         birthday: '',
