@@ -130,11 +130,16 @@
     })
     const emit = defineEmits(['submit']);
 
+const props = defineProps({
+  modelValue: Object,
+  editMode: Boolean,
+})
     let form = reactive({
         status: 'En attente',
         firstName: '',
         lastName: '',
         phone: '',
+        room: '',
         room: '',
         doctorId: '',
         roomNumber: '',
@@ -183,7 +188,17 @@ function handleSubmit() {
   flex-direction: column;
   gap: 18px;
 }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 
+section {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
 section {
   padding: 12px;
   border: 1px solid #ddd;
@@ -197,8 +212,19 @@ select {
   margin-bottom: 10px;
   padding: 8px;
 }
+input,
+select {
+  width: 100%;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  padding: 8px;
+}
 
 button {
   padding: 8px 14px;
 }
+button {
+  padding: 8px 14px;
+}
 </style>
+
