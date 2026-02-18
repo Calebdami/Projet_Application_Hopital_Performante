@@ -24,21 +24,30 @@
 </template>
 
 <script setup>
-    defineProps({
-        doctors: {
-            type: Array,
-            default: () => []
-        }
-    })
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps({
+  doctors: {
+    type: Array,
+    default: () => [],
+  },
+  patients: {
+    type: Array,
+    default: () => [], // <-- par défaut tableau vide
+  },
+})
+
+const emit = defineEmits(['edit', 'delete'])
 </script>
 
 <style scoped>
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
 </style>
