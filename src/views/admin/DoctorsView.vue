@@ -1,16 +1,4 @@
 <template>
-  <div>
-    <h2>Médecins</h2>
-
-    <DoctorForm :editMode="editMode" :modelValue="selectedDoctor" @submit="saveDoctor" />
-
-    <DoctorsTable
-      :doctors="doctors"
-      :patients="patients"
-      @edit="startEdit"
-      @delete="removeDoctor"
-    />
-  </div>
     <div class="doctors-container">
         <div class="form-wrapper">
             <h2>Médecins</h2>
