@@ -1,7 +1,19 @@
-import { ref, watch } from 'vue'
+import { ref, watch, toRaw } from 'vue'
+
+function parseStorage(key, defaultValue) {
+  try {
+    return JSON.parse(localStorage.getItem(key)) || defaultValue
+  } catch {
+    return defaultValue
+  }
+}
 
 export function useLocalStorage(key, defaultValue = []) {
-    const data = ref(JSON.parse(localStorage.getItem(key)) || defaultValue)
-    watch(data, (newVal) => { localStorage.setItem(key, JSON.stringify(newVal)) }, { deep: true })
-    return data
+  const data = ref(parseStorage(key, defaultValue))
+
+  watch(data, (newVal) => {
+    localStorage.setItem(key, JSON.stringify(toRaw(newVal)))
+  }, { deep: true })
+
+  return data
 }

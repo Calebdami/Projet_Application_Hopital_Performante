@@ -16,33 +16,59 @@
 </template>
 
 <script setup>
-    import { reactive, watch } from 'vue'
+import { reactive, watch } from 'vue'
 
-    const props = defineProps({
-        modelValue: Object,
-        editMode: Boolean
-    })
+const props = defineProps({
+  modelValue: Object,
+  editMode: Boolean
+})
 
-    const emit = defineEmits(['submit'])
+const emit = defineEmits(['submit'])
 
-    const form = reactive({
-        number: '',
-        capacity: 1,
-        status: 'free'
-    })
+const defaultForm = {
+  number: '',
+  capacity: 3,
+  status: 'free'
+}
 
-    watch(
-        () => props.modelValue,
-        (val) => {
-            if (val) Object.assign(form, val)
-        },
-        { immediate: true }
-    )
+// Objet réactif du formulaire
+const form = reactive({ ...defaultForm })
 
-    function handleSubmit() {
-        emit('submit', { ...form })
+// ===============================
+// Si on passe en mode édition,
+// on remplit le formulaire
+// ===============================
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val) {
+      Object.assign(form, val)
     }
+  },
+  { immediate: true }
+)
+
+// ===============================
+// Réinitialisation propre
+// ===============================
+function resetForm() {
+  Object.assign(form, defaultForm)
+}
+
+// ===============================
+// Soumission
+// ===============================
+function handleSubmit() {
+
+  emit('submit', { ...form })
+
+  // On reset seulement si on crée
+  if (!props.editMode) {
+    resetForm()
+  }
+}
 </script>
+
 
 <style scoped>
     .form {
