@@ -74,8 +74,11 @@
           <option v-for="doc in availableDoctors" :key="doc.id" :value="doc.id">
             {{ doc.firstName }} {{ doc.lastName }} ({{ doc.speciality }})
           </option>
+        <select v-model="form.status">
+            <option value="Hospitalise(e)">Hospitalisé</option>
+            <option value="Sorti(e)">Sorti</option>
+            <option value="En attente">En attente</option>
         </select>
-<<<<<<< HEAD
       </section>
       <!-- Chambre -->
       <select v-model="form.roomId">
@@ -89,9 +92,19 @@
     <!-- ========================= --><!-- 5. PROFESSION & ARRIVÉE --><!-- ========================= -->
     <section>
       <h3>Informations administratives</h3>
-=======
         
         <!-- ========================= IDENTITÉ DU PATIENT --><!-- ========================= -->
+        <section>
+            <div>
+                <h4>Besoin de chambres ?</h4>
+                <input v-model="needRoom" type="checkbox" name="room">
+            </div>
+            <input v-if="needRoom===true" v-model="form.roomNumber" type="text" placeholder="Numero de chambre" />
+        </section>
+        
+        <input v-model="form.doctorId" type="number" placeholder="Id du docteur" />
+
+        <!-- ========================= --><!-- 1. IDENTITÉ DU PATIENT --><!-- ========================= -->
         <section>
             <h3>Identité</h3>
 
@@ -110,7 +123,7 @@
             <input type="file" accept="image/*" @change="handlePhoto" />
             <input v-model="form.numeroIP" placeholder="Numéro IP" type="number" />
         </section>
->>>>>>> ec3f1cfe98d27bc11875b716e1dd70d1153db07f
+
 
       <select v-model="form.profession">
         <option value="">-- Profession --</option>
@@ -168,19 +181,27 @@ import { useDoctors } from '@/composables/useDoctors' // si tu as un composable 
 
 
 const availableDoctors = computed(() => doctors.value.filter((d) => d.available))
+    import { ref, reactive, watch } from 'vue';
 
-<<<<<<< HEAD
+    const props = defineProps({
+        modelValue: Object,
+        editMode: Boolean
+    })
+    const needRoom = ref(false);
+    const emit = defineEmits(['submit']);
+
 const props = defineProps({
   modelValue: Object,
   editMode: Boolean,
 })
-=======
     let form = reactive({
-        status: 'pending',
+        status: 'En attente',
         firstName: '',
         lastName: '',
         phone: '',
         room: '',
+        doctorId: '',
+        roomNumber: '',
         gender: 'male',
         bloodGroup: '',
         birthday: '',
@@ -197,9 +218,7 @@ const props = defineProps({
         profession: '',
         modeArrivee: '',
         languages: [],
-        role: 'patient'
     })
->>>>>>> ec3f1cfe98d27bc11875b716e1dd70d1153db07f
 
 const emit = defineEmits(['submit'])
 

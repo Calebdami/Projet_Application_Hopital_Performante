@@ -12,7 +12,8 @@
                 <option value="male">Homme</option>
                 <option value="female">Femme</option>
             </select>
-            <input v-model="form.passeword" type="password" required>
+            <label for="">Mot de Passe</label>
+            <input v-model="form.passeword" type="password" placeholder="****" required>
             <input type="file" accept="image/*" @change="handlePhoto" />
             <input v-model="form.numeroIP" placeholder="Numéro IP" type="number" />
         </section>

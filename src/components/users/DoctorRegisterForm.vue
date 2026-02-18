@@ -46,7 +46,8 @@
             <input v-model="form.department" placeholder="Service d'affectation" />
             <input v-model="form.grade" placeholder="Grade / Fonction" />
             <input v-model="form.officeNumber" placeholder="Numéro de bureau" />
-
+            <label for="">Mot de Passe</label>
+            <input v-model="form.passeword" type="password" placeholder="****" required>
             <label>Signature numérique :</label>
             <input type="file" accept="image/*" @change="handleSignature" />
         </section>
