@@ -1,7 +1,28 @@
 import { useLocalStorage } from './useLocalStorage'
+import { useDoctors } from './useDoctors'
 
 export function usePatients() {
   const patients = useLocalStorage('patients', []) //impplémentation du localStorage des patients
+  const { doctors } = useDoctors()
+
+  function assignDoctor(patientId, doctorId) {
+    const doctor = doctors.value.find(d => d.id === doctorId)
+
+    if (!doctor) {
+      throw new Error('Médecin inexistant')
+    }
+
+    if (!doctor.available) {
+      throw new Error('Médecin indisponible')
+    }
+
+    const patient = patients.value.find(p => p.id === patientId)
+    if (!patient) {
+      throw new Error('Patient inexistant')
+    }
+
+    patient.doctorId = doctorId
+  }
 
   function addPatient(patient) {
     const newPatient = {
@@ -34,5 +55,6 @@ export function usePatients() {
     updatePatient,
     deletePatient,
     findPatient,
+    assignDoctor
   }
 }

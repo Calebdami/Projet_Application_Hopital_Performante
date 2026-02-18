@@ -12,21 +12,28 @@ export function useDoctors() {
     })
   }
 
+  function availableDoctors() {
+    return doctors.value.filter((d) => d.available)
+  }
+
   function updateDoctor(id, updatedDoctor) {
-    const index = doctors.value.findIndex(d => d.id === id)
+    const index = doctors.value.findIndex((d) => d.id === id)
     if (index === -1) return
 
     const oldDoctor = doctors.value[index]
-    const newStatus = updatedDoctor.available !== undefined
-      ? (updatedDoctor.available ? 'available' : 'unavailable')
-      : oldDoctor.status
+    const newStatus =
+      updatedDoctor.available !== undefined
+        ? updatedDoctor.available
+          ? 'available'
+          : 'unavailable'
+        : oldDoctor.status
 
     doctors.value[index] = { ...oldDoctor, ...updatedDoctor, status: newStatus }
 
     // Si médecin devient indisponible, annuler ses RDV non annulés
     if (newStatus === 'unavailable') {
       const { appointments } = useAppointments()
-      appointments.value.forEach(appt => {
+      appointments.value.forEach((appt) => {
         if (appt.doctorId === id && appt.status !== 'cancelled') {
           appt.status = 'cancelled'
         }
@@ -35,11 +42,11 @@ export function useDoctors() {
   }
 
   function deleteDoctor(id) {
-    doctors.value = doctors.value.filter(d => d.id !== id)
+    doctors.value = doctors.value.filter((d) => d.id !== id)
   }
 
   function findDoctor(id) {
-    return doctors.value.find(d => d.id === id)
+    return doctors.value.find((d) => d.id === id)
   }
 
   return {

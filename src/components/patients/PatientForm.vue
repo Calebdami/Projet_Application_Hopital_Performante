@@ -1,10 +1,17 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { usePatients } from '@/composables/usePatients'
 import { useRooms } from '@/composables/useRooms'
+import { useDoctors } from '@/composables/useDoctors'
 
 const { rooms, availablePlaces, assignPatient, removePatient } = useRooms()
 const { patients, addPatient, updatePatient, deletePatient } = usePatients()
+const {doctors} = useDoctors()
+
+const availableDoctors = computed(() =>
+  doctors.value.filter(d => d.available)
+)
+
 
 const form = reactive({
   firstName: '',
@@ -46,7 +53,7 @@ function editPatient(patient) {
 }
 
 function resetForm() {
-  Object.keys(form).forEach(key => form[key] = '')
+  Object.keys(form).forEach((key) => (form[key] = ''))
   editingId = null
   isEditing.value = false
 }
@@ -86,7 +93,10 @@ function resetForm() {
             <label>Groupe Sanguin</label>
             <select v-model="form.bloodGroup" required>
               <option value="" disabled>Sélectionner</option>
-              <option v-for="group in ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']" :key="group">
+              <option
+                v-for="group in ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']"
+                :key="group"
+              >
                 {{ group }}
               </option>
             </select>
@@ -101,10 +111,13 @@ function resetForm() {
             </select>
           </div>
 
-          <div class="field">
-            <label>ID Médecin</label>
-            <input v-model="form.doctorId" type="text" />
-          </div>
+          <select v-model="form.doctorId">
+            <option disabled value="">Choisir un médecin</option>
+
+            <option v-for="doctor in availableDoctors" :key="doctor.id" :value="doctor.id">
+              {{ doctor.name }}
+            </option>
+          </select>
 
           <div class="field">
             <label>Chambre</label>
@@ -141,7 +154,9 @@ function resetForm() {
           </div>
           <div class="patient-actions">
             <button @click="editPatient(patient)" class="btn-icon" title="Modifier">✏️</button>
-            <button @click="handleDelete(patient)" class="btn-icon delete" title="Supprimer">🗑️</button>
+            <button @click="handleDelete(patient)" class="btn-icon delete" title="Supprimer">
+              🗑️
+            </button>
           </div>
         </div>
       </div>
@@ -194,7 +209,8 @@ label {
   color: #64748b;
 }
 
-input, select {
+input,
+select {
   padding: 10px;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
@@ -202,7 +218,8 @@ input, select {
   transition: border-color 0.2s;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   outline: none;
   border-color: #3498db;
 }
@@ -253,7 +270,10 @@ input:focus, select:focus {
   background: #e2e8f0;
 }
 
-.patient-badge.inpatient { background: #dcfce7; color: #166534; }
+.patient-badge.inpatient {
+  background: #dcfce7;
+  color: #166534;
+}
 
 .btn-icon {
   background: none;
