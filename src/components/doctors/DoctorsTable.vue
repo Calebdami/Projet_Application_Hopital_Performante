@@ -1,48 +1,63 @@
 <template>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Spécialité</th>
-                <th>Téléphone</th>
-                <th>Disponible</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Spécialité</th>
+        <th>Téléphone</th>
+        <th>Disponible</th>
+        <th>Patients</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-        <tbody>
-            <tr v-for="doctor in doctors" :key="doctor.id">
-                <td>{{ doctor.id }}</td>
-                <td>{{ doctor.name }}</td>
-                <td>{{ doctor.speciality }}</td>
-                <td>{{ doctor.phone }}</td>
-                <td>{{ doctor.available ? 'Oui' : 'Non' }}</td>
-                <td>
-                    <button @click="$emit('edit', doctor)">✏️</button>
-                    <button @click="$emit('delete', doctor.id)">🗑️</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <tbody>
+      <tr v-for="doctor in doctors" :key="doctor.id">
+        <td>{{ doctor.id }}</td>
+        <td>{{ doctor.firstName }} {{ doctor.lastName }}</td>
+
+        <td>{{ doctor.speciality }}</td>
+        <td>{{ doctor.phone }}</td>
+        <td>{{ doctor.available ? 'Oui' : 'Non' }}</td>
+        <td>
+          {{ props.patients.filter((p) => p.doctorId === doctor.id).length }}
+        </td>
+
+        <td>
+          <button @click="$emit('edit', doctor)">✏️</button>
+          <button @click="$emit('delete', doctor.id)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script setup>
-    defineProps({
-        doctors: {
-            type: Array,
-            default: () => []
-        }
-    })
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps({
+  doctors: {
+    type: Array,
+    default: () => [],
+  },
+  patients: {
+    type: Array,
+    default: () => [], // <-- par défaut tableau vide
+  },
+})
+
+const emit = defineEmits(['edit', 'delete'])
 </script>
 
 <style scoped>
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
 </style>
