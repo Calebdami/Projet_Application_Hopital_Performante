@@ -4,6 +4,8 @@
     import { useDoctors } from '@/composables/useDoctors'
     import { useAppointments } from '@/composables/useAppointments'
     import { useRooms } from '@/composables/useRooms'
+    import { useUsers } from '@/composables/useUsers'
+    import { useAuth } from '@/composables/useAuth'
 
     const { patients } = usePatients()
     const { doctors } = useDoctors()
@@ -31,21 +33,9 @@
                 </div>
                 <span class="text-slate-600 font-semibold text-sm">18 Février 2026</span>
             </div>
-            </div>
+        </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="group bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-200 transition-all duration-300">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                    </div>
-                    <span class="flex items-center text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-full">+12%</span>
-                </div>
-                <StatsCard title="Patients" :value="patients.length" class="text-slate-800 font-bold" />
-            </div>
-
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="group bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-indigo-200 transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
                     <div class="p-3 bg-indigo-50 text-indigo-600 rounded-2xl group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
@@ -56,6 +46,18 @@
                     <span class="text-xs font-medium text-slate-400 italic">En service</span>
                 </div>
                 <StatsCard title="Médecins" :value="doctors.length" />
+            </div>
+
+            <div class="group bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-200 transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <span class="flex items-center text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-full">+12%</span>
+                </div>
+                <StatsCard title="Patients" :value="patients.length" class="text-slate-800 font-bold" />
             </div>
 
             <div class="group bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-rose-200 transition-all duration-300">

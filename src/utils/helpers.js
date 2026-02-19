@@ -13,7 +13,7 @@ export function formatDate(dateStr) {
 export function filterList(list, filters = {}) {
     return list.filter(item => {
         return Object.keys(filters).every(key => {
-        if (!filters[key]) return true
+            if (!filters[key]) return true
             return item[key]?.toString().toLowerCase().includes(filters[key].toString().toLowerCase())
         })
     })
