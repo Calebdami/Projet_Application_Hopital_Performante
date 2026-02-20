@@ -2,9 +2,9 @@
     import { ref } from 'vue'
     import { useAuth } from '@/composables/useAuth'
 
-    import DoctorRegisterForm from '@/components/users/DoctorRegisterForm.vue'
     import ReceptionistRegisterForm from '@/components/users/ReceptionistRegisterForm.vue'
     import PatientRegisterForm from '@/components/users/PatientRegisterForm.vue'
+    import DoctorRegisterForm from '@/components/users/DoctorRegisterForm.vue'
 
     const { createUser } = useAuth();
 

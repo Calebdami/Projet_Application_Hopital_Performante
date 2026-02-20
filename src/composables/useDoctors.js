@@ -1,5 +1,6 @@
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useLocalStorage } from './useLocalStorage'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 export function useDoctors(patients) {
   const doctors = useLocalStorage('doctors', [])
@@ -26,9 +27,11 @@ export function useDoctors(patients) {
 
   // Supprimer un médecin (sécurisé)
   function deleteDoctor(id) {
+    const notify = useNotificationStore()
     const hasPatients = patients.value.some(p => p.doctorId === id)
     if (hasPatients) {
-      throw new Error('Impossible de supprimer : médecin assigné à des patients')
+      notify.error('Impossible de supprimer un Medecin assigné à des patients')
+      return
     }
     doctors.value = doctors.value.filter(d => d.id !== id)
   }

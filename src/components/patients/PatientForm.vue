@@ -12,6 +12,8 @@
         editMode: Boolean,
     })
 
+    // Variables pour l'UI
+    let imageUrl = ref(null);
     // État initial pour la réinitialisation
     const initialState = {
         status: 'En attente',
@@ -20,7 +22,7 @@
         birthday: '',
         gender: 'male',
         numeroIP: '',
-        photoIP: '',
+        photoIP: imageUrl,
         phone: '',
         email: '',
         languages: [],
@@ -41,8 +43,6 @@
     // La variable du formulaire
     let form = reactive({ ...initialState })
 
-    // Variables pour l'UI
-    let imageUrl = ref(null);
     let showNotification = ref(false);
 
     // Variable pour utiliser des chambres
@@ -297,7 +297,12 @@
 
         <div class="pt-4">
             <button type="submit" 
-                class="w-full sm:w-auto px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2">
+                class="w-full sm:w-auto px-10 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                {{ editMode ? 'Mettre à jour le dossier' : 'Valider l\'admission' }}
+            </button>
+            <button type="submit" 
+                class="w-full sm:w-auto px-10 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
                 {{ editMode ? 'Mettre à jour le dossier' : 'Valider l\'admission' }}
             </button>

@@ -14,23 +14,22 @@
     const selectedDoctor = ref(null)
 
     function saveDoctor(data) {
-    if (editMode.value) {
-        updateDoctor(selectedDoctor.value.id, data)
-    } else {
-        addDoctor(data)
-    }
-
-    editMode.value = false
-    selectedDoctor.value = null
+        if (editMode.value) {
+            updateDoctor(selectedDoctor.value.id, data)
+        } else {
+            addDoctor(data)
+        }
+        editMode.value = false
+        selectedDoctor.value = null
     }
 
     function startEdit(doctor) {
-    editMode.value = true
-    selectedDoctor.value = doctor
+        editMode.value = true
+        selectedDoctor.value = doctor
     }
 
     function removeDoctor(id) {
-    deleteDoctor(id)
+        deleteDoctor(id)
     }
 </script>
 
@@ -56,7 +55,7 @@
 
         <div class="flex flex-col lg:flex-row gap-6 items-start">
         
-            <div class="w-full lg:flex-[0_0_70%] transition-all duration-300">
+            <div v-if="editMode" class="w-full lg:flex-[0_0_55%] transition-all duration-300">
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="bg-slate-900 px-6 py-4 flex items-center justify-between">
                         <h3 class="text-white font-medium flex items-center gap-2">
@@ -78,7 +77,34 @@
                 </div>
             </div>
 
-            <div class="w-full lg:flex-[0_0_30%] sticky top-6">
+            <div v-if="!editMode" class="w-full lg:flex-[0_0_95%] sticky top-6">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[80vh]">
+                    <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-white">
+                        <h3 class="font-bold text-slate-700 text-sm uppercase tracking-tight">Liste du personnel</h3>
+                        <button class="text-indigo-600 hover:text-indigo-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="overflow-y-auto p-2 custom-scrollbar">
+                        <DoctorsTable
+                        :doctors="doctors"
+                        @edit="startEdit"
+                        @delete="removeDoctor"
+                        />
+                    </div>
+                    
+                    <div class="p-4 bg-slate-50 border-t border-slate-100">
+                        <p class="text-[10px] text-slate-400 text-center italic">
+                            Dernière mise à jour : Aujourd'hui à 14:30
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="editMode" class="w-full lg:flex-[0_0_45%] sticky top-6">
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[80vh]">
                     <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-white">
                         <h3 class="font-bold text-slate-700 text-sm uppercase tracking-tight">Liste du personnel</h3>

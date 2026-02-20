@@ -27,14 +27,15 @@
         role: 'patient'
     })
 
-    function handlePhoto(event) {
-        const file = event.target.files[0]
-        if (!file) return
-        const reader = new FileReader()
-        reader.onload = () => {
-            form.photoIP = reader.result
+
+    const handlePhoto = (event) => {
+        // Récupérer le premier fichier sélectionné
+        const file = event.target.files[0];
+        if (file) {
+            // Création d'une URL temporaire pour afficher un aperçu dans l'HTML
+            imageUrl.value = URL.createObjectURL(file);
+            // Stocker imageUrl dans une ref pour l'afficher dans une balise <img>
         }
-        reader.readAsDataURL(file)
     }
 
     function submitForm() {

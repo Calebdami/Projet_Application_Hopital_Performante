@@ -1,4 +1,7 @@
 <script setup>
+    import NotificationContainer from './components/NotificationContainer.vue';
+    import ConfirmDialog from './components/ui/ConfirmDialog.vue';
+
 // App.vue reste volontairement léger.
 // Toute la structure de l’application est gérée par Vue Router et les layouts.
 </script>
@@ -6,6 +9,7 @@
 <template>
     <div class="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
         <router-view />
+        <notification-container/>
     </div>
 </template>
 
@@ -14,6 +18,6 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     body {
-    font-family: 'Inter', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 </style>

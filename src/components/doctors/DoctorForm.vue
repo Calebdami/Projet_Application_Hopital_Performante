@@ -1,5 +1,4 @@
 <script setup>
-    
     import { ref, reactive, watch } from 'vue'
 
     const props = defineProps({
@@ -8,8 +7,11 @@
     })
 
     const emit = defineEmits(['submit'])
-    let showBankInfo = ref(true);
+    let showBankInfo = ref(false); // Mis à false par défaut pour ne pas encombrer
+
+    // État réactif avec les 29 informations
     const form = reactive({
+        // 1-6 : État Civil & Contact
         title: '',
         name: '',
         photo: '',
@@ -17,28 +19,34 @@
         email: '',
         languages: [],
 
+        // 7-10 : Expertise
         rpps: '',
         speciality: '',
         subSpeciality: '',
         diplomas: '',
 
+        // 11-14 : Affectation
         department: '',
         grade: '',
         officeNumber: '',
         signature: '',
 
+        // 15-17 : Contrat
         contractType: 'full-time',
         consultationHours: '',
         onCall: false,
 
+        // 18-21 : Système
         username: '',
         password: '',
         patientQuota: 20,
         acl: 'standard',
 
+        // 22-23 : Profil Bio
         requiredEquipment: '',
         bio: '',
 
+        // 24-29 : Paiement & Statut
         bankName: '',
         accountNumber: '',
         iban: '',
@@ -47,6 +55,7 @@
         available: true
     })
 
+    // Surveillance pour le mode édition
     watch(
         () => props.modelValue,
         (val) => {
@@ -55,6 +64,7 @@
         { immediate: true }
     )
 
+    // Fonctions de gestion de fichiers (Photo & Signature)
     function handlePhoto(e) {
         const file = e.target.files[0]
         if (!file) return
@@ -81,122 +91,224 @@
         <div class="border-b border-slate-100 pb-4 mb-6">
             <h2 class="text-2xl font-black text-slate-800 flex items-center gap-3">
                 <span class="p-2 bg-indigo-600 text-white rounded-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
                 </span>
                 {{ editMode ? 'Modifier le Profil' : 'Nouveau Praticien' }}
             </h2>
         </div>
-        <section class="p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 transition-all hover:border-indigo-200">
-            <h3 class="text-xs font-black text-indigo-500 uppercase tracking-[0.2em] flex items-center gap-2">
+
+        <section class="p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <h3 class="text-xs font-black text-indigo-500 uppercase tracking-[0.2em] flex items-center gap-2 mb-4">
                 <span class="flex items-center justify-center w-5 h-5 bg-indigo-100 rounded-full text-[10px]">1</span>
-                État Civil & Contact
+                Identité & Contact
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-1">
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Titre</label>
-                    <input v-model="form.title" placeholder="Ex: Pr. ou Dr." class="input-field" />
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-24 h-24 rounded-2xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden relative group">
+                        <img v-if="form.photo" :src="form.photo" class="w-full h-full object-cover" />
+                        <span v-else class="text-slate-400 text-[10px] text-center px-2">Photo de profil</span>
+                        <input type="file" @change="handlePhoto" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" />
+                    </div>
                 </div>
-                <div class="md:col-span-2">
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nom complet</label>
-                    <input v-model="form.name" placeholder="Nom et Prénoms" required class="input-field font-bold" />
+                <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-1">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Titre</label>
+                        <input v-model="form.title" placeholder="Dr, Pr, etc." class="input-field" />
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nom complet</label>
+                        <input v-model="form.name" required class="input-field font-bold" />
+                    </div>
+                    <div class="md:col-span-1">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Téléphone</label>
+                        <input v-model="form.phone" class="input-field" />
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Email institutionnel</label>
+                        <input v-model="form.email" type="email" required class="input-field" />
+                    </div>
                 </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input v-model="form.phone" placeholder="Téléphone pro" class="input-field" />
-                <input v-model="form.email" type="email" placeholder="Email institutionnel" required class="input-field" />
             </div>
             <div class="space-y-2">
                 <label class="block text-[10px] font-bold text-slate-400 uppercase">Langues parlées</label>
                 <div class="flex flex-wrap gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                    <label v-for="lang in ['francais', 'fon', 'goun', 'yoruba', 'autres']" :key="lang" class="flex items-center gap-2 cursor-pointer group">
-                        <input type="checkbox" :value="lang" v-model="form.languages" class="w-4 h-4 text-indigo-600 rounded border-slate-300" />
-                        <span class="text-sm text-slate-600 group-hover:text-indigo-600 capitalize font-medium">{{ lang }}</span>
+                    <label v-for="lang in ['Français', 'Anglais', 'Fon', 'Yoruba', 'Autre']" :key="lang" class="flex items-center gap-2 cursor-pointer group">
+                        <input type="checkbox" :value="lang.toLowerCase()" v-model="form.languages" class="w-4 h-4 text-indigo-600 rounded border-slate-300" />
+                        <span class="text-xs text-slate-600 font-medium">{{ lang }}</span>
                     </label>
                 </div>
             </div>
         </section>
+
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <section class="p-6 rounded-2xl border border-slate-200 space-y-4">
                 <h3 class="text-xs font-black text-indigo-500 uppercase tracking-[0.2em] flex items-center gap-2">
                     <span class="flex items-center justify-center w-5 h-5 bg-indigo-100 rounded-full text-[10px]">2</span>
-                    Expertise & Diplômes
+                    Expertise Médicale
                 </h3>
-                <input v-model="form.rpps" placeholder="RPPS / Numéro d'Ordre" class="input-field font-mono" />
-                <input v-model="form.speciality" placeholder="Spécialité principale" required class="input-field" />
-                <textarea v-model="form.diplomas" placeholder="Diplômes et certifications" rows="3" class="input-field"></textarea>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-small">RPPS / Ordre</label>
+                        <input v-model="form.rpps" class="input-field font-mono" placeholder="1010..." />
+                    </div>
+                    <div>
+                        <label class="label-small">Spécialité</label>
+                        <input v-model="form.speciality" required class="input-field" placeholder="Ex: Cardiologie" />
+                    </div>
+                </div>
+                <div>
+                    <label class="label-small">Sous-spécialité / Expertise</label>
+                    <input v-model="form.subSpeciality" class="input-field" placeholder="Ex: Rythmologie" />
+                </div>
+                <div>
+                    <label class="label-small">Diplômes</label>
+                    <textarea v-model="form.diplomas" rows="2" class="input-field text-xs"></textarea>
+                </div>
             </section>
+
             <section class="p-6 rounded-2xl border border-slate-200 space-y-4">
                 <h3 class="text-xs font-black text-indigo-500 uppercase tracking-[0.2em] flex items-center gap-2">
                     <span class="flex items-center justify-center w-5 h-5 bg-indigo-100 rounded-full text-[10px]">3</span>
-                    Affectation Interne
+                    Logistique & Signature
                 </h3>
-                <input v-model="form.department" placeholder="Service (ex: Cardiologie)" class="input-field" />
                 <div class="grid grid-cols-2 gap-4">
-                    <input v-model="form.grade" placeholder="Grade" class="input-field" />
-                    <input v-model="form.officeNumber" placeholder="Bureau" class="input-field" />
+                    <div>
+                        <label class="label-small">Service</label>
+                        <input v-model="form.department" class="input-field" />
+                    </div>
+                    <div>
+                        <label class="label-small">Grade</label>
+                        <input v-model="form.grade" class="input-field" />
+                    </div>
+                    <div>
+                        <label class="label-small">Bureau</label>
+                        <input v-model="form.officeNumber" class="input-field" />
+                    </div>
+                    <div>
+                        <label class="label-small">Matériel Requis</label>
+                        <input v-model="form.requiredEquipment" class="input-field" placeholder="Ex: Écho-doppler" />
+                    </div>
                 </div>
                 <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
                     <label class="block text-[10px] font-bold text-amber-600 uppercase mb-1">Signature Numérique</label>
-                    <input type="file" accept="image/*" @change="handleSignature" class="text-xs text-amber-700 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-white file:shadow-sm" />
+                    <div class="flex items-center gap-4">
+                        <div v-if="form.signature" class="h-10 w-20 bg-white rounded border border-amber-200 overflow-hidden">
+                            <img :src="form.signature" class="w-full h-full object-contain" />
+                        </div>
+                        <input type="file" @change="handleSignature" accept="image/*" class="text-[10px] text-amber-700 w-full file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-white file:text-amber-700" />
+                    </div>
                 </div>
             </section>
         </div>
-        <section class="p-6 rounded-2xl border border-slate-900 bg-slate-900 text-white space-y-4 shadow-xl">
+
+        <section class="p-6 rounded-2xl border border-slate-900 bg-slate-900 text-white space-y-6">
             <h3 class="text-xs font-black text-indigo-400 uppercase tracking-[0.2em] flex items-center gap-2">
                 <span class="flex items-center justify-center w-5 h-5 bg-indigo-900 rounded-full text-[10px]">4</span>
-                Gestion & Accès Système
+                Système & Planning
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <select v-model="form.contractType" class="input-field-dark">
-                <option value="full-time text-slate-800">Temps plein</option>
-                <option value="part-time text-slate-800">Temps partiel</option>
-                <option value="on-call text-slate-800">Garde uniquement</option>
-                </select>
-                <input v-model="form.username" placeholder="Identifiant" class="input-field-dark" />
-                <input v-model="form.password" type="password" placeholder="Mot de passe" class="input-field-dark" />
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="md:col-span-1">
+                    <label class="label-small text-slate-400">Type de contrat</label>
+                    <select v-model="form.contractType" class="input-field-dark">
+                        <option value="full-time">Temps plein</option>
+                        <option value="part-time">Temps partiel</option>
+                        <option value="freelance">Vacataire</option>
+                    </select>
+                </div>
+                <div class="md:col-span-1">
+                    <label class="label-small text-slate-400">Quota Patients/Jour</label>
+                    <input v-model.number="form.patientQuota" type="number" class="input-field-dark" />
+                </div>
+                <div class="md:col-span-1">
+                    <label class="label-small text-slate-400">Identifiant (Login)</label>
+                    <input v-model="form.username" class="input-field-dark" />
+                </div>
+                <div class="md:col-span-1">
+                    <label class="label-small text-slate-400">Mot de passe</label>
+                    <input v-model="form.password" type="password" class="input-field-dark" />
+                </div>
             </div>
-            <div class="flex flex-wrap gap-6 pt-2 border-t border-slate-800 mt-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="label-small text-slate-400">Horaires de consultation</label>
+                    <input v-model="form.consultationHours" placeholder="Lun-Ven: 08h-16h" class="input-field-dark" />
+                </div>
+                <div>
+                    <label class="label-small text-slate-400">Niveau d'accès (ACL)</label>
+                    <select v-model="form.acl" class="input-field-dark">
+                        <option value="standard">Standard</option>
+                        <option value="admin">Administrateur</option>
+                        <option value="head">Chef de Service</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="label-small text-slate-400">Biographie courte / Notes</label>
+                <textarea v-model="form.bio" rows="2" class="input-field-dark text-xs"></textarea>
+            </div>
+
+            <div class="flex flex-wrap gap-6 pt-4 border-t border-slate-800">
                 <label class="flex items-center gap-3 cursor-pointer">
-                    <div class="relative inline-flex items-center">
-                        <input type="checkbox" v-model="form.onCall" class="sr-only peer">
-                        <div class="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-indigo-500 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
-                    </div>
-                    <span class="text-sm font-bold text-slate-300">Disponible pour gardes</span>
+                    <input type="checkbox" v-model="form.onCall" class="w-5 h-5 rounded border-slate-700 bg-slate-800 text-indigo-500" />
+                    <span class="text-xs font-bold text-slate-300">Garde & Astreintes</span>
                 </label>
                 <label class="flex items-center gap-3 cursor-pointer">
-                    <div class="relative inline-flex items-center">
-                        <input type="checkbox" v-model="form.available" class="sr-only peer">
-                        <div class="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
-                    </div>
-                    <span class="text-sm font-bold text-slate-300">Actuellement actif</span>
+                    <input type="checkbox" v-model="form.available" class="w-5 h-5 rounded border-slate-700 bg-slate-800 text-emerald-500" />
+                    <span class="text-xs font-bold text-slate-300">Compte Actif</span>
                 </label>
             </div>
         </section>
 
         <div class="space-y-4">
-            <label class="inline-flex items-center cursor-pointer p-4 bg-slate-50 rounded-2xl border border-slate-200 w-full hover:bg-white transition-all">
-                <input type="checkbox" v-model="showBankInfo" class="w-5 h-5 text-indigo-600 rounded" />
-                <span class="ml-3 font-bold text-slate-700">Inclure les informations de paiement</span>
-            </label>
+            <button type="button" @click="showBankInfo = !showBankInfo" class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200 w-full hover:bg-white transition-all">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-emerald-100 text-emerald-600 rounded-lg italic font-black text-xs italic">RIB</div>
+                    <span class="font-bold text-slate-700 text-sm italic">Informations de facturation & Bancaires</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 transition-transform" :class="{'rotate-180': showBankInfo}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            
             <transition name="slide">
                 <section v-if="showBankInfo" class="p-6 rounded-2xl border-2 border-dashed border-slate-200 space-y-4 bg-slate-50/50">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-1">
+                            <label class="label-small">Banque</label>
+                            <input v-model="form.bankName" class="input-field bg-white" />
+                        </div>
+                        <div class="md:col-span-1">
+                            <label class="label-small">Type de compte</label>
+                            <input v-model="form.accountType" placeholder="Courant, Épargne..." class="input-field bg-white" />
+                        </div>
+                        <div class="md:col-span-1">
+                            <label class="label-small">N° de compte</label>
+                            <input v-model="form.accountNumber" class="input-field bg-white" />
+                        </div>
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input v-model="form.bankName" placeholder="Nom de la banque" class="input-field bg-white" />
-                        <input v-model="form.accountNumber" placeholder="Numéro de compte" class="input-field bg-white" />
-                        <input v-model="form.iban" placeholder="IBAN" class="input-field bg-white" />
-                        <input v-model="form.swift" placeholder="SWIFT/BIC" class="input-field bg-white" />
+                        <div>
+                            <label class="label-small uppercase">IBAN</label>
+                            <input v-model="form.iban" class="input-field bg-white font-mono" />
+                        </div>
+                        <div>
+                            <label class="label-small uppercase">SWIFT / BIC</label>
+                            <input v-model="form.swift" class="input-field bg-white font-mono" />
+                        </div>
                     </div>
                 </section>
             </transition>
         </div>
-        <div class="pt-6">
-            <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl shadow-xl shadow-indigo-100 transition-all flex items-center justify-center gap-3">
-                {{ editMode ? 'Mettre à jour le profil' : 'Finaliser la création' }}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
+
+        <div class="pt-8 border-t border-slate-100 flex items-center justify-between">
+            <p class="text-xs text-slate-400 italic">Tous les champs marqués d'une étoile sont obligatoires.</p>
+            <button type="submit" class="px-10 py-4 bg-slate-900 text-white font-black rounded-2xl hover:bg-indigo-600 transition-all hover:shadow-xl hover:shadow-indigo-200 active:scale-95">
+                Finaliser l'inscription
             </button>
         </div>
     </form>
@@ -204,14 +316,21 @@
 
 <style scoped>
     @reference "../../assets/styles/main.css";
+
     .input-field {
-        @apply w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all placeholder:text-slate-300 text-sm;
+        @apply w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all placeholder:text-slate-300 text-sm shadow-sm;
     }
 
     .input-field-dark {
         @apply w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-white focus:ring-2 focus:ring-indigo-400 outline-none transition-all text-sm placeholder:text-slate-500;
     }
 
-    .slide-enter-active, .slide-leave-active { transition: all 0.3s ease; }
+    .label-small {
+        @apply block text-[9px] font-black text-slate-400 uppercase mb-1 tracking-wider;
+    }
+
+    .slide-enter-active, .slide-leave-active { transition: all 0.3s ease-out; }
     .slide-enter-from, .slide-leave-to { opacity: 0; transform: translateY(-10px); }
 </style>
+
+        
