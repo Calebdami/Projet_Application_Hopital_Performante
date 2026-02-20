@@ -13,7 +13,7 @@
         },
     })
 
-    const emit = defineEmits(['edit', 'delete']);
+    const emit = defineEmits(['view', 'edit', 'delete'])
     const router = useRouter()
 
     // Fonction pour naviguer vers le profil détaillé

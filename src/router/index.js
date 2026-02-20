@@ -19,6 +19,7 @@ import ReceptionDashboard from '@/views/receptionist/ReceptionDashboard.vue';
 import ReceptionPatientsView from '@/views/receptionist/ReceptionPatientsView.vue';
 import ReceptionAppointmentsView from '@/views/receptionist/ReceptionAppointmentsView.vue';
 import PatientDetailView from '@/views/shared/PatientDetailView.vue';
+import DoctorDetailView from '@/views/shared/DoctorDetailView.vue';
 
 const routes = [
     { path: '/login', component: AuthLayout, children: [{ path: '', component: LoginView }] },

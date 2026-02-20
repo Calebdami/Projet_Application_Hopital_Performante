@@ -1,5 +1,7 @@
 <script setup>
     import { ref, reactive, watch } from 'vue'
+    import { useDoctors } from '@/composables/useDoctors';
+    import { generateId } from '@/utils/helpers';
 
     const props = defineProps({
         modelValue: Object,
@@ -11,6 +13,7 @@
 
     // État réactif avec les 29 informations
     const form = reactive({
+        id: generateId(),
         // 1-6 : État Civil & Contact
         title: '',
         name: '',
@@ -82,6 +85,8 @@
     }
 
     function handleSubmit() {
+        const newDoctor = useDoctors();
+        newDoctor.addDoctor(form)
         emit('submit', { ...form })
     }
 </script>

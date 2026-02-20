@@ -14,8 +14,8 @@
     import { useRouter } from 'vue-router'
     import { useAuth } from '@/composables/useAuth'
 
-    const router = useRouter()
     const { currentUser, logout } = useAuth()
+    const router = useRouter()
 
     function handleLogout() {
         logout()

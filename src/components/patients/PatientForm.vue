@@ -253,7 +253,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="space-y-1">
                     <label class="text-[10px] font-bold text-slate-400 uppercase">Médecin responsable</label>
-                    <select v-model="form.doctorId" required class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm">
+                    <select v-model="form.doctorId" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm">
                         <option value="">-- Sélectionner --</option>
                         <option v-for="doc in availableDoctors" :key="doc.id" :value="doc.id">Dr. {{ doc.lastName }} ({{ doc.speciality }})</option>
                     </select>
@@ -296,11 +296,6 @@
         </section>
 
         <div class="pt-4">
-            <button type="submit" 
-                class="w-full sm:w-auto px-10 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                {{ editMode ? 'Mettre à jour le dossier' : 'Valider l\'admission' }}
-            </button>
             <button type="submit" 
                 class="w-full sm:w-auto px-10 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>

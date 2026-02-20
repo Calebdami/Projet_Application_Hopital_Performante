@@ -3,19 +3,12 @@ import { useLocalStorage } from './useLocalStorage'
 import { useNotificationStore } from '@/stores/notificationStore'
 
 export function useDoctors(patients) {
+  const use = useLocalStorage('doctors', []);
   const doctors = useLocalStorage('doctors', [])
 
   // Ajouter un médecin
   function addDoctor(doctor) {
-    doctors.value.push({
-      id: crypto.randomUUID(),
-      firstName: doctor.firstName,
-      lastName: doctor.lastName,
-      speciality: doctor.speciality,
-      phone: doctor.phone,
-      available: doctor.available ?? true,
-      createdAt: new Date().toISOString(),
-    })
+    doctors.value.push(doctor)
   }
 
   // Mettre à jour un médecin

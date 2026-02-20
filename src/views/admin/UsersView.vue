@@ -1,21 +1,25 @@
 <script setup>
-    import { ref } from 'vue'
+    import { ref, watch } from 'vue'
     import { useAuth } from '@/composables/useAuth'
 
     import ReceptionistRegisterForm from '@/components/users/ReceptionistRegisterForm.vue'
     import PatientRegisterForm from '@/components/users/PatientRegisterForm.vue'
     import DoctorRegisterForm from '@/components/users/DoctorRegisterForm.vue'
-
+    import { useNotificationStore } from '@/stores/notificationStore'
+    const notify = useNotificationStore();
     const { createUser } = useAuth();
 
     const role = ref('doctor')
 
     function createUsers(data) {
         try {
-            createUser(data)
-            alert('Utilisateur créé')
+            watch(role, (newRole) => {
+                data[newRole] = role.value
+                createUser(data)
+            })
+            notify.success('Utilisateur créé avec sucecc')
         } catch (err) {
-            alert(err.message)
+            notify.info(err.message)
         }
     }
 </script>

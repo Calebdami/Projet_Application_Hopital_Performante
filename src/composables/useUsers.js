@@ -4,6 +4,13 @@ export function useUsers() {
     const users = useLocalStorage('users', [])
 
     function addUser(user) {
+        users.push({
+            id: Date.now(),
+            name: 'Jacky',
+            email: 'jacky@hospital.com',
+            password: '1234',
+            role: 'doctor'
+        })
         const exists = users.value.some(u => u.email === user.email)
         if (exists) throw new Error('Email déjà utilisé')
 
